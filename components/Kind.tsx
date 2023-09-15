@@ -4,7 +4,7 @@ import * as jp from 'jsonpath';
 import { Accordion, Icon, List, Label, Segment, AccordionTitleProps } from 'semantic-ui-react';
 
 interface KindProps {
-  crd: k8s.V1beta1CustomResourceDefinition;
+  crd: k8s.V1CustomResourceDefinition;
   active: boolean;
   index: number;
   handleClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, titleProps: AccordionTitleProps) => void;
@@ -16,7 +16,7 @@ export const Kind: React.FC<KindProps> = ({ crd, active, index, ...props }) => {
   const [loading, setLoading] = useState(true);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, titleProps: AccordionTitleProps) => {
-    fetch(`api/crds/v1beta1/${crd.spec.names.plural}?group=${crd.spec.group}&version=${crd.spec.version}`)
+    fetch(`api/crds/v1beta1/${crd.spec.names.plural}?group=${crd.spec.group}&version=${crd.spec.versions}`)
       .then(res => {
         if (!res.ok) {
           setError(res.status);
